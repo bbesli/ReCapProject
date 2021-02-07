@@ -16,8 +16,6 @@ namespace ConsoleUI
             //CarDeletingTest(); //worked fine
             //CarUpdatingTest(); //worked fine
 
-
-
         }
 
         private static void CarUpdatingTest()
