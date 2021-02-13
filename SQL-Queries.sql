@@ -1,7 +1,5 @@
-﻿Create Database CarRental
-
-Create Table Cars(
-CarId int identity(1,1),
+﻿Create Table Cars(
+CarId int,
 BrandId int,
 ColorId int,
 CarManufacturedYear Date,
@@ -27,3 +25,9 @@ ALTER COLUMN BrandName varchar(30);
 
 ALTER TABLE Colors
 ALTER COLUMN ColorName varchar(20);
+
+ALTER TABLE Cars
+ALTER COLUMN CarModel varchar(20);
+
+
+
