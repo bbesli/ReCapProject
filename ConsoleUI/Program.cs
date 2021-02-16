@@ -16,19 +16,47 @@ namespace ConsoleUI
             //CarDeletingTest(); //worked fine
             //CarUpdatingTest(); //worked fine
 
-            //RentalDetailsTest();
-            /*customer ekleme ve eğer return date null'sa araç kiralama test edilecek.*/
+            //RentalDetailsTest(); // worked fine
+
+            //AddRental(); //worked fine
 
 
+
+        }
+
+        private static void AddRental()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result = rentalManager.Add(new Rental
+            {
+                CarId = 2,
+                CustomerId = 1,
+                RentDate = DateTime.Now
+            });
+            if (result.Success)
+            {
+                Console.WriteLine(result.Message);
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
         }
 
         private static void RentalDetailsTest()
         {
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
-            var result = rentalManager.GetRentalDetails().Data;
-            foreach (var rental in result)
+            var result = rentalManager.GetRentalDetails();
+            if (result.Success)
             {
-                Console.WriteLine(rental.CarId + " --- " + rental.CustomerId + " --- " + rental.RentDate + " --- " + rental.ReturnDate);
+                foreach (var rental in result.Data)
+                {
+                    Console.WriteLine(rental.CarId + "---" + rental.RentDate + " ---- " + rental.ReturnDate);
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
         }
 

@@ -6,6 +6,7 @@ using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -21,8 +22,19 @@ namespace Business.Concrete
 
         public IResult Add(Rental rental)
         {
-            _rentalDal.Add(rental);
-            return new SuccessResult(Messages.RentalAdded);
+            var request = GetRentalDetails().Data;
+            var result = request.Where(r=> r.CarId == rental.CarId && r.ReturnDate ==null);
+
+            if (result.Any())
+            {
+                return new ErrorResult(Messages.RentalAddedFailure);
+            }
+            else
+            {
+                _rentalDal.Add(rental);
+                return new SuccessResult(Messages.RentalAdded);
+            }
+            
         }
 
         public IResult Delete(Rental rental)
